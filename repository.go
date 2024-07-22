@@ -25,7 +25,7 @@ func main() {
 	guilherme := novoUsuario("Guilherme", "guilhermegaspar@gmail.com")
 	fmt.Println(guilherme)
 
-	joao := novoUsuario("Joao", "joaosaraceni@gmail,com")
+	joao := novoUsuario("Joao", "joaosaraceni@gmail.com")
 	fmt.Println(joao)
 
 
