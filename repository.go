@@ -3,6 +3,7 @@ import "fmt"
 
 var idAtual = 1
 var listaUsuarios []Usuario
+var listaFilmes []Filme
 
 
 type Usuario struct{
@@ -31,16 +32,42 @@ func novoUsuario(nome, email string)Usuario{
 
 }
 
+func criarFilme(titulo string, diretor string, ano int, genero string)Filme{
+	filmes := Filme{
+		Titulo: titulo,
+		Diretor: diretor,
+		Ano: ano,
+		Genero: genero,
+	}
+	listaFilmes = append(listaFilmes, filmes)
+	return filmes
+	
+}
+
 
 func main() {
 
-	guilherme := novoUsuario("Guilherme", "guilhermegaspar@gmail.com")
+	guilherme := novoUsuario("Guilherme Gaspar", "guilhermegaspar@gmail.com")
 	fmt.Println(guilherme)
 	
-	joao := novoUsuario("Joao", "joaosaraceni@gmail.com")
+	joao := novoUsuario("Joao Saraceni", "joaosaraceni@gmail.com")
 	fmt.Println(joao)
+	
+	for _, usuario := range listaUsuarios{
+		fmt.Println(usuario.Nome)
+	}
+	
 
-	fmt.Println(listaUsuarios)
+
+	titanic := criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
+	fmt.Println(titanic)
+
+	interestellar := criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
+	fmt.Println(interestellar)
+
+	for _, filmes := range listaFilmes{
+		fmt.Println(filmes.Titulo)
+	}
 
 
 }
