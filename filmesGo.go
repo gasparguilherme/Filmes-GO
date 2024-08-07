@@ -4,7 +4,6 @@ import "fmt"
 
 var idAtual = 1
 var listaUsuarios []Usuario
-var listaFilmes []Filme
 
 
 type Usuario struct{
@@ -43,7 +42,6 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 		Genero: genero,
 	}
 	u.Filmes = append(u.Filmes, filmes)
-	listaFilmes = append(listaFilmes, filmes)
 		
 	return filmes
 	
@@ -72,9 +70,7 @@ func main() {
 	interestellar := joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
 	fmt.Println(interestellar)
 
-	for _, filmes := range listaFilmes{
-		fmt.Println(filmes.Titulo)
-	}
+
 
 	for _, usuario := range listaUsuarios{
 		fmt.Printf("Filmes de %s: \n", usuario.Nome)
