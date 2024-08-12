@@ -34,19 +34,17 @@ func novoUsuario(nome, email string)Usuario{
 
 }
 
-func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero string)Filme{
-	filmes := Filme{
+func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero string){
+	filme := Filme{
 		Titulo: titulo,
 		Diretor: diretor,
 		Ano: ano,
 		Genero: genero,
 	}
-	u.Filmes = append(u.Filmes, filmes)
+	u.Filmes = append(u.Filmes, filme)
 		
-	return filmes
 	
 }
-
 
 
 func main() {
@@ -54,21 +52,19 @@ func main() {
 	guilherme := novoUsuario("Guilherme Gaspar", "guilhermegaspar@gmail.com")
 	fmt.Println(guilherme)
 
-
 	
 	joao := novoUsuario("Joao Saraceni", "joaosaraceni@gmail.com")
 	fmt.Println(joao)
 	
+
 	for _, usuario := range listaUsuarios{
 		fmt.Println(usuario.Nome)
 	}
 	
 
-	titanic := guilherme.criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
-	fmt.Println(titanic)
-
-	interestellar := joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
-	fmt.Println(interestellar)
+	guilherme.criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
+	
+	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
 
 
 
