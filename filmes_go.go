@@ -46,6 +46,18 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 	
 }
 
+func (u *Usuario) editarFilme(titulo string, novoDiretor string, novoAno int, novoGenero string) bool {
+	for i, filme := range u.Filmes {
+		if filme.Titulo == titulo {
+			u.Filmes[i].Diretor = novoDiretor
+			u.Filmes[i].Ano = novoAno
+			u.Filmes[i].Genero = novoGenero
+			return true
+		}
+	}
+	return false
+}
+
 
 
 func main() {
@@ -53,17 +65,20 @@ func main() {
 	guilherme := novoUsuario("Guilherme Gaspar", "guilhermegaspar@gmail.com")
 	fmt.Println(guilherme)
 
-
 	
 	joao := novoUsuario("Joao Saraceni", "joaosaraceni@gmail.com")
 	fmt.Println(joao)
 	
+	
 	for _, usuario := range listaUsuarios{
-		fmt.Println(usuario.Nome)
+	fmt.Println(usuario.Nome)
 	}
 	
 
-	guilherme.criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
+	guilherme.criarFilme("Titanic", "James Cameron", 1998, "Drama/Romance")
+	fmt.Println(guilherme)
+
+	guilherme.editarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
 	fmt.Println(guilherme)
 
 	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
@@ -77,9 +92,5 @@ func main() {
 			fmt.Println(filme.Titulo)
 		}
 	}
-
-
-
-
 
 }
