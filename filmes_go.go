@@ -3,7 +3,9 @@ package main
 import "fmt"
 
 var idAtual = 1
+var idFilmeAtual = 1
 var listaUsuarios []Usuario
+
 
 
 type Usuario struct{
@@ -18,6 +20,8 @@ type Filme struct{
 	Diretor string
 	Ano int
 	Genero string
+	ID int
+
 
 }
 
@@ -40,24 +44,11 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 		Diretor: diretor,
 		Ano: ano,
 		Genero: genero,
+		ID: idFilmeAtual,
 	}
-	u.Filmes = append(u.Filmes, filme)
-		
-	
+	idFilmeAtual++
+	u.Filmes = append(u.Filmes, filme)	
 }
-
-func (u *Usuario) editarFilme(titulo string, novoDiretor string, novoAno int, novoGenero string) bool {
-	for i, filme := range u.Filmes {
-		if filme.Titulo == titulo {
-			u.Filmes[i].Diretor = novoDiretor
-			u.Filmes[i].Ano = novoAno
-			u.Filmes[i].Genero = novoGenero
-			return true
-		}
-	}
-	return false
-}
-
 
 
 func main() {
@@ -78,11 +69,11 @@ func main() {
 	guilherme.criarFilme("Titanic", "James Cameron", 1998, "Drama/Romance")
 	fmt.Println(guilherme)
 
-	guilherme.editarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
-	fmt.Println(guilherme)
+
 
 	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
 	fmt.Println(joao)
+
 
 
 
