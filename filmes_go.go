@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 var idAtual = 1
-var listaUsuarios []Usuario
+var listaUsuarios []*Usuario
 
 
 type Usuario struct{
@@ -21,8 +21,8 @@ type Filme struct{
 
 }
 
-func novoUsuario(nome, email string)Usuario{
-	usuario := Usuario{
+func novoUsuario(nome, email string)*Usuario{
+	usuario := &Usuario{
 		Nome: nome,
 		Email: email,
 		ID: idAtual,
@@ -65,6 +65,8 @@ func main() {
 
 	guilherme.criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
 	fmt.Println(guilherme)
+
+	
 
 	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
 	fmt.Println(joao)
