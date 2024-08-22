@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 var idAtual = 1
+var idFilme = 1
 var listaUsuarios []*Usuario
 
 
@@ -18,6 +19,7 @@ type Filme struct{
 	Diretor string
 	Ano int
 	Genero string
+	ID int
 
 }
 
@@ -40,7 +42,9 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 		Diretor: diretor,
 		Ano: ano,
 		Genero: genero,
+		ID: idFilme,
 	}
+	idFilme++
 	u.Filmes = append(u.Filmes, filme)
 		
 	
