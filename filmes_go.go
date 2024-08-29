@@ -1,6 +1,7 @@
 package main  
 
-import "fmt"
+import ("fmt"
+"errors")
 
 var idAtual = 1
 var idFilme = 1
@@ -22,6 +23,11 @@ type Filme struct{
 	ID int
 
 }
+
+func usuarioNaoEncontrado() error{
+	return errors.New("usuario não encontrado")
+}
+
 
 func novoUsuario(nome, email string)*Usuario{
 	usuario := &Usuario{
@@ -54,10 +60,14 @@ func filmesPorUsuario(id int) []Filme {
 	for _, usuario := range listaUsuarios {
 		if usuario.ID == id {
 			return usuario.Filmes
-		}
+		}	
 	}
-}
-
+	err := usuarioNaoEncontrado()
+	if err != nil{
+		fmt.Println(err)
+	}
+	return nil
+	}
 
 
 func main() {
@@ -94,7 +104,7 @@ func main() {
 	}
 
 	
-	busca :=filmesPorUsuario(2)
+	busca :=filmesPorUsuario(3)
 	fmt.Println(busca)
 
 
