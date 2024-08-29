@@ -50,18 +50,13 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 	
 }
 
-func filmesPorUsuario(id int)[]Filme{
-	for _, usuario := range listaUsuarios{
-		if usuario.ID == id{
-			for _, filme := range usuario.Filmes{
-				fmt.Println(filme)
-			}
-			break
+func filmesPorUsuario(id int) []Filme {
+	for _, usuario := range listaUsuarios {
+		if usuario.ID == id {
+			return usuario.Filmes
 		}
 	}
-
 }
-
 
 
 
@@ -88,7 +83,6 @@ func main() {
 	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
 	fmt.Println(joao)
 
-	joao.criarFilme("Bad Boy", "Jordy Nichols",2007, "Ação")
 
 
 
@@ -100,7 +94,8 @@ func main() {
 	}
 
 	
-	filmesPorUsuario(2)
+	busca :=filmesPorUsuario(2)
+	fmt.Println(busca)
 
 
 
