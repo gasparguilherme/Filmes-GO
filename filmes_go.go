@@ -24,9 +24,6 @@ type Filme struct{
 
 }
 
-func usuarioNaoEncontrado() error{
-	return errors.New("usuario não encontrado")
-}
 
 
 func novoUsuario(nome, email string)*Usuario{
@@ -56,19 +53,14 @@ func (u *Usuario) criarFilme(titulo string, diretor string, ano int, genero stri
 	
 }
 
-func filmesPorUsuario(id int) []Filme {
+func filmesPorUsuario(id int) ([]Filme, error) {
 	for _, usuario := range listaUsuarios {
 		if usuario.ID == id {
-			return usuario.Filmes
+			return usuario.Filmes, nil
 		}	
+		}
+		return nil, errors.New("usuario nao encontrado")
 	}
-	err := usuarioNaoEncontrado()
-	if err != nil{
-		fmt.Println(err)
-	}
-	return nil
-	}
-
 
 func main() {
 
@@ -95,7 +87,6 @@ func main() {
 
 
 
-
 	for _, usuario := range listaUsuarios{
 		fmt.Printf("Filmes de %s: \n", usuario.Nome)
 		for _, filme := range usuario.Filmes{
@@ -103,11 +94,13 @@ func main() {
 		}
 	}
 
-	
-	busca :=filmesPorUsuario(3)
-	fmt.Println(busca)
 
-
+	buscaUsuario, err := filmesPorUsuario(3)
+	if err != nil {
+		fmt.Println(err)
+	}else{
+		fmt.Println(buscaUsuario)
+	}
 
 
 }
