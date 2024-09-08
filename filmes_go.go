@@ -62,6 +62,20 @@ func filmesPorUsuario(id int) ([]Filme, error) {
 		return nil, errors.New("usuario nao encontrado")
 	}
 
+
+func filmePorID (id int) (Filme, *Usuario, error){
+	for _, usuario := range listaUsuarios{
+		for _, filme := range usuario.Filmes{
+			if filme.ID == id {
+				return filme, usuario, nil
+			}
+		}
+	}
+	return Filme{}, nil, errors.New("usuario não encontrado")
+}
+
+
+
 func main() {
 
 	guilherme := novoUsuario("Guilherme Gaspar", "guilhermegaspar@gmail.com")
@@ -102,5 +116,14 @@ func main() {
 		fmt.Println(buscaUsuario)
 	}
 
+
+	filme, usuario, err := filmePorID(2)
+	if err != nil{
+		fmt.Println(err)
+	
+	}else{
+		fmt.Println(filme.Titulo)
+		fmt.Println(usuario.Nome)
+	}
 
 }
