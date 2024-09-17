@@ -63,16 +63,21 @@ func filmesPorUsuario(id int) ([]Filme, error) {
 	}
 
 
-func filmePorID (id int) (Filme, *Usuario, error){
-	for _, usuario := range listaUsuarios{
-		for _, filme := range usuario.Filmes{
-			if filme.ID == id {
-				return filme, usuario, nil
-			}
+
+func (u *Usuario) editarFilme( filmeID int, titulo string, diretor string, ano int, genero string) error {
+	for i, filme := range u.Filmes{
+		if filme.ID == filmeID{
+			u.Filmes[i].Titulo = titulo
+			u.Filmes[i].Diretor = diretor
+			u.Filmes[i].Ano = ano
+			u.Filmes[i].Genero = genero
+			return nil
+
 		}
 	}
-	return Filme{}, nil, errors.New("usuario não encontrado")
-}
+	return errors.New("filme não encontrado")
+	}
+
 
 
 
@@ -91,12 +96,12 @@ func main() {
 	}
 	
 
-	guilherme.criarFilme("Titanic", "James Cameron", 1997, "Drama/Romance")
+	guilherme.criarFilme("Titanic", "James Cameron", 2000, "Drama/Romance")
 	fmt.Println(guilherme)
 
 	
 
-	joao.criarFilme("Interestellar", "Christopher Nolan", 2014, "Ficção Cientifica")
+	joao.criarFilme("Interestellar", "Christopher Nolan", 2013, "Ficção Cientifica")
 	fmt.Println(joao)
 
 
@@ -117,13 +122,11 @@ func main() {
 	}
 
 
-	filme, usuario, err := filmePorID(2)
+	err = guilherme.editarFilme(1,"Titanic", "James Cameron", 1997, "Drama/Romance" )
 	if err != nil{
 		fmt.Println(err)
-	
 	}else{
-		fmt.Println(filme.Titulo)
-		fmt.Println(usuario.Nome)
+		fmt.Println(guilherme.Filmes)
 	}
 
 }
