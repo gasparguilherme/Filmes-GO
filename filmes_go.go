@@ -63,7 +63,19 @@ func filmesPorUsuario(id int) ([]Filme, error) {
 	}
 
 
+func filmePorID (id int) (Filme, *Usuario, error){
+	for _, usuario := range listaUsuarios{
+		for _, filme := range usuario.Filmes{
+			if filme.ID == id {
+				return filme, usuario, nil
+			}
+		}
+	}
+	return Filme{}, nil, errors.New("usuario não encontrado")
+}
 
+
+ 
 func (u *Usuario) editarFilme( filmeID int, titulo string, diretor string, ano int, genero string) error {
 	for i, filme := range u.Filmes{
 		if filme.ID == filmeID{
@@ -120,6 +132,18 @@ func main() {
 	}else{
 		fmt.Println(buscaUsuario)
 	}
+
+
+	
+	filme, usuario, err := filmePorID(2)
+	if err != nil{
+		fmt.Println(err)
+	
+	}else{
+		fmt.Println(filme.Titulo)
+		fmt.Println(usuario.Nome)
+	}
+
 
 
 	err = guilherme.editarFilme(1,"Titanic", "James Cameron", 1997, "Drama/Romance" )
