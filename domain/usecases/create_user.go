@@ -1,16 +1,18 @@
 package usecases
 
-import "github.com/gasparguilherme/my-repository/domain/entities"
+import (
+	"github.com/gasparguilherme/my-repository/domain/entities"
+	"github.com/gasparguilherme/my-repository/repository"
+)
 
 func NovoUsuario(nome, email string) *entities.Usuario {
-	usuario := &Usuario{
-		Nome: nome,
+	usuario := entities.Usuario{
+		Nome:  nome,
 		Email: email,
-		ID: idAtual,
+		ID:    repository.GetNextID_users(),
 	}
-	idAtual++
-	listaUsuarios = append(listaUsuarios,usuario )
-	
-	return usuario
+	repository.Save_user(usuario)
+
+	return &usuario
 
 }
