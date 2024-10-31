@@ -1,9 +1,9 @@
 package entities
 
-type Filme struct {
-	Titulo  string
-	Diretor string
-	Ano     int
-	Genero  string
-	ID      int
+type Film struct {
+	Title    string
+	Director string
+	Year     int
+	Gender   string
+	ID       int
 }

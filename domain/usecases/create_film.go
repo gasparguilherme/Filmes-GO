@@ -2,17 +2,17 @@ package usecases
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/repository"
+	repository "github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func criarFilme(titulo string, diretor string, ano int, genero string) entities.Filme {
-	filme := entities.Filme{
-		Titulo:  titulo,
-		Diretor: diretor,
-		Ano:     ano,
-		Genero:  genero,
-		ID:      repository.GetNextID_films(),
+func createFilm(title string, director string, year int, gender string) entities.Film {
+	film := entities.Film{
+		Title:    title,
+		Director: director,
+		Year:     year,
+		Gender:   gender,
+		ID:       repository.GetNextFilmID(),
 	}
-	return filme
+	return film
 
 }

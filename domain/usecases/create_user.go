@@ -2,17 +2,16 @@ package usecases
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/repository"
+	repository "github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func NovoUsuario(nome, email string) *entities.Usuario {
-	usuario := entities.Usuario{
-		Nome:  nome,
+func NewUser(name, email string) *entities.User {
+	user := entities.User{
+		Name:  name,
 		Email: email,
-		ID:    repository.GetNextID_users(),
+		ID:    repository.GetNextUserID(),
 	}
-	repository.Save_user(usuario)
-
-	return &usuario
+	repository.SaveUser(user)
+	return &user
 
 }
