@@ -8,7 +8,7 @@ import (
 
 type userLocal entities.User
 
-func (u *userLocal) editFilm(filmID int, tittle string, director string, year int, gender string) error {
+func (u *userLocal) EditFilm(filmID int, tittle string, director string, year int, gender string) error {
 	for i, filme := range u.Films {
 		if filme.ID == filmID {
 			u.Films[i].Title = tittle
