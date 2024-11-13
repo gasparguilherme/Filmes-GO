@@ -7,13 +7,13 @@ import (
 	repository "github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func FilmsByID(id int) (entities.Film, *entities.User, error) {
+func FilmByID(id int) (entities.Film, error) {
 	for _, user := range repository.GetUsers() {
 		for _, film := range user.Films {
 			if film.ID == id {
-				return film, &entities.User{}, nil
+				return film, nil
 			}
 		}
 	}
-	return entities.Film{}, nil, errors.New("user not found")
+	return entities.Film{}, errors.New("film not found")
 }
