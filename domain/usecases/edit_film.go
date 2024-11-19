@@ -1,23 +1,25 @@
 package usecases
 
 import (
-	"errors"
+	"fmt"
 
-	"github.com/gasparguilherme/my-repository/domain/entities"
+	repository "github.com/gasparguilherme/my-repository/repository/user"
 )
 
-type userLocal entities.User
-
-func (u *userLocal) editFilm(filmID int, tittle string, director string, year int, gender string) error {
-	for i, filme := range u.Films {
-		if filme.ID == filmID {
-			u.Films[i].Title = tittle
-			u.Films[i].Director = director
-			u.Films[i].Year = year
-			u.Films[i].Gender = gender
-			return nil
-
+func EditFilm(userID int, filmID int, title string, director string, year int, gender string) error {
+	users := repository.GetUsers()
+	for _, user := range users {
+		if user.ID == userID {
+			for i := range user.Films {
+				if user.Films[i].ID == filmID {
+					user.Films[i].Title = title
+					user.Films[i].Director = director
+					user.Films[i].Year = year
+					user.Films[i].Gender = gender
+					return nil
+				}
+			}
 		}
 	}
-	return errors.New("filme não encontrado")
+	return fmt.Errorf("film with ID not found")
 }
