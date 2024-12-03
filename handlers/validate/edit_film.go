@@ -1,11 +1,11 @@
-package handlers
+package validate
 
 import (
 	"errors"
 	"strings"
 )
 
-func validateFilm(title string, director string, year int, gender string) error {
+func ValidateFilm(title string, director string, year int, gender string) error {
 	switch "" {
 	case strings.TrimSpace(title):
 		return errors.New("the title cannot be empty")

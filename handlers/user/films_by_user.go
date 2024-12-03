@@ -1,13 +1,14 @@
-package handlers
+package user
 
 import (
 	"fmt"
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
 func filmByUSer(id int) {
-	err := validateID(id)
+	err := validate.ValidateID(id)
 	if err != nil {
 		fmt.Println(err)
 		return

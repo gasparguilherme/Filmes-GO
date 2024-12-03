@@ -1,14 +1,15 @@
-package handlers
+package user
 
 import (
 	"fmt"
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
 func createUser(name, email string) {
 
-	err := validateUser(name, email)
+	err := validate.ValidateUser(name, email)
 	if err != nil {
 		fmt.Println(err)
 		return
