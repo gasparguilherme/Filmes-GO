@@ -1,8 +1,8 @@
 package entities
 
 type User struct {
-	Name  string
-	Email string
-	ID    int
-	Films []Film
+	Name  string `json: "name"`
+	Email string `json: "email"`
+	ID    int    `json: "ID"`
+	Films []Film `json: "films"`
 }
