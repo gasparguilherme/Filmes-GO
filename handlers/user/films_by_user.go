@@ -10,7 +10,7 @@ import (
 
 func filmByUSer(jsonInput []byte) {
 	var User struct {
-		UserID int `json:"userid"`
+		UserID int `json:"user_id"`
 	}
 
 	err := json.Unmarshal(jsonInput, &User)

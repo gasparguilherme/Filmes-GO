@@ -1,10 +1,10 @@
 package validate
 
-import "fmt"
+import "errors"
 
 func ValidateID(id int) error {
 	if id <= 0 {
-		fmt.Println("please enter an id greater than zero")
+		return errors.New("please enter an id greater than zero")
 	}
 	return nil
 

@@ -13,12 +13,13 @@ func editFilm(jsonInput []byte) {
 
 	// minha duvida com essa estrura é em relação ao UserID, ele esta tendo alguma conexão com o campo ID na struct User
 	var inputData struct {
-		UserID int           `json:"userid"`
+		UserID int           `json:"user_id"`
 		Film   entities.Film `json:"film"`
 	}
 	err := json.Unmarshal(jsonInput, &inputData)
 	if err != nil {
 		fmt.Println("error unmarshal json", err)
+		return
 	}
 
 	err = validate.ValidateFilm(inputData.Film.Title, inputData.Film.Director, inputData.Film.Year,

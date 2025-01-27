@@ -10,7 +10,7 @@ import (
 )
 
 func createUser(jsonInput []byte) {
-	var user entities.User
+	var user *entities.User
 	err := json.Unmarshal(jsonInput, &user)
 	if err != nil {
 		fmt.Println("error unmarshal json", err)
@@ -23,7 +23,7 @@ func createUser(jsonInput []byte) {
 		return
 	}
 
-	user = *usecases.NewUser(user.Email, user.Name)
+	user = usecases.NewUser(user.Email, user.Name)
 
 	jsonUser, err := json.Marshal(user)
 	if err != nil {

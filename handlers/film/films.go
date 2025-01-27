@@ -10,7 +10,7 @@ import (
 )
 
 func createFilm(jsonInput []byte) {
-	var film entities.Film
+	var film *entities.Film
 	err := json.Unmarshal(jsonInput, &film)
 	if err != nil {
 		fmt.Println("error unmarshal json")
@@ -23,7 +23,7 @@ func createFilm(jsonInput []byte) {
 		return
 	}
 
-	film = *usecases.CreateFilm(film.Title, film.Director, film.Year, film.Gender)
+	film = usecases.CreateFilm(film.Title, film.Director, film.Year, film.Gender)
 
 	jsonFilm, err := json.Marshal(film)
 	if err != nil {
