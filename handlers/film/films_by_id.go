@@ -5,30 +5,30 @@ import (
 	"fmt"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
+	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func filmByID(jsonInput []byte) {
-	var film entities.Film
-	err := json.Unmarshal(jsonInput, &film)
+func FilmByID(jsonInput []byte) {
+	var f entities.Film
+	err := json.Unmarshal(jsonInput, &f)
 	if err != nil {
 		fmt.Println("error unmarshal json", err)
 	}
 
-	err = validate.ValidateID(film.ID)
+	err = validate.ValidateID(f.ID)
 	if err != nil {
 		fmt.Println("validation error", err)
 		return
 	}
 
-	film, err = usecases.FilmByID(film.ID)
+	f, err = film.FilmByID(f.ID)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	jsonFilm, err := json.Marshal(film)
+	jsonFilm, err := json.Marshal(f)
 	if err != nil {
 		fmt.Println("error converting json format ", err)
 		return

@@ -5,13 +5,12 @@ import (
 	"fmt"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
+	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func editFilm(jsonInput []byte) {
+func EditFilm(jsonInput []byte) {
 
-	// minha duvida com essa estrura é em relação ao UserID, ele esta tendo alguma conexão com o campo ID na struct User
 	var inputData struct {
 		UserID int           `json:"user_id"`
 		Film   entities.Film `json:"film"`
@@ -29,7 +28,7 @@ func editFilm(jsonInput []byte) {
 		return
 	}
 
-	film := usecases.EditFilm(inputData.UserID, inputData.Film.ID, inputData.Film.Title, inputData.Film.Director, inputData.Film.Year, inputData.Film.Gender)
+	film := film.EditFilm(inputData.Film.ID, inputData.Film.Title, inputData.Film.Director, inputData.Film.Year, inputData.Film.Gender)
 
 	jsonFilm, err := json.Marshal(film)
 	if err != nil {

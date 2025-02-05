@@ -4,14 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
+	"github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func filmByUSer(jsonInput []byte) {
-	var User struct {
-		UserID int `json:"user_id"`
-	}
+type FilmByUserRequest struct {
+	UserID int `json:"user_id"`
+}
+
+func FilmByUser(jsonInput []byte) {
+	var User FilmByUserRequest
 
 	err := json.Unmarshal(jsonInput, &User)
 	if err != nil {
@@ -24,10 +26,10 @@ func filmByUSer(jsonInput []byte) {
 		return
 	}
 
-	user, err := usecases.FilmByUser(User.UserID)
+	u, err := user.FilmByUser(User.UserID)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("user id found", user)
+	fmt.Println("user id found", u)
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func createUser(jsonInput []byte) {
+func CreateUser(jsonInput []byte) {
 	var user *entities.User
 	err := json.Unmarshal(jsonInput, &user)
 	if err != nil {
@@ -23,7 +23,7 @@ func createUser(jsonInput []byte) {
 		return
 	}
 
-	user = usecases.NewUser(user.Email, user.Name)
+	user = usecases.NewUser(user.Name, user.Email)
 
 	jsonUser, err := json.Marshal(user)
 	if err != nil {

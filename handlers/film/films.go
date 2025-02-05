@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func createFilm(jsonInput []byte) {
+func CreateFilm(jsonInput []byte) {
 	var film *entities.Film
 	err := json.Unmarshal(jsonInput, &film)
 	if err != nil {
@@ -23,7 +23,7 @@ func createFilm(jsonInput []byte) {
 		return
 	}
 
-	film = usecases.CreateFilm(film.Title, film.Director, film.Year, film.Gender)
+	film = usecases.CreateFilm(film.UserID, film.Title, film.Director, film.Year, film.Gender)
 
 	jsonFilm, err := json.Marshal(film)
 	if err != nil {
