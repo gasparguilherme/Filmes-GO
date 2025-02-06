@@ -31,9 +31,13 @@ func EditFilm(jsonInput []byte) {
 		return
 	}
 
-	film := film.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	err = film.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	if err != nil {
+		slog.Error("erro ao editar filme")
+		return
+	}
 
-	jsonFilm, err := json.Marshal(film)
+	jsonFilm, err := json.Marshal(inputData)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
