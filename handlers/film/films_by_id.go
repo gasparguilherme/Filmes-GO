@@ -2,7 +2,6 @@ package film
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
@@ -37,5 +36,5 @@ func FilmByID(jsonInput []byte) {
 		return
 	}
 
-	fmt.Println("filme encontrado", string(jsonFilm))
+	slog.Info("filme encontrado", "filme", string(jsonFilm))
 }
