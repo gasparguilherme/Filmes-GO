@@ -14,5 +14,5 @@ func FilmByID(id int) (entities.Film, error) {
 		}
 	}
 
-	return entities.Film{}, errors.New("film not found")
+	return entities.Film{}, errors.New("filme nao encontrado")
 }

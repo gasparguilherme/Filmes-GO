@@ -3,6 +3,7 @@ package film
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
@@ -10,29 +11,31 @@ import (
 )
 
 func FilmByID(jsonInput []byte) {
+	slog.Info("requisição de busca de filme por ID", "JSON", string(jsonInput))
 	var f entities.Film
 	err := json.Unmarshal(jsonInput, &f)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
+		slog.Error("não foi possivel interpretar json", "error", err)
+		return
 	}
 
 	err = validate.ValidateID(f.ID)
 	if err != nil {
-		fmt.Println("validation error", err)
+		slog.Error("erro ao buscar ID", "error", err)
 		return
 	}
 
 	f, err = film.FilmByID(f.ID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return
 	}
 
 	jsonFilm, err := json.Marshal(f)
 	if err != nil {
-		fmt.Println("error converting json format ", err)
+		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
 	}
 
-	fmt.Println("Film found", string(jsonFilm))
+	fmt.Println("filme encontrado", string(jsonFilm))
 }

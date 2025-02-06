@@ -8,16 +8,14 @@ import (
 )
 
 func FilmByUser(id int) ([]entities.Film, error) {
-	var userFilms []entities.Film
 
 	for _, user := range GetUsers() {
 		if user.ID == id {
 			for _, film := range film.GetFilms() {
 				if film.UserID == id {
-					userFilms = append(userFilms, film)
 				}
 			}
-			return userFilms, nil
+			return film.GetFilms(), nil
 		}
 	}
 	return nil, errors.New("user not found")

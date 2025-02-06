@@ -3,6 +3,7 @@ package user
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 	"github.com/gasparguilherme/my-repository/repository/user"
@@ -13,23 +14,32 @@ type FilmByUserRequest struct {
 }
 
 func FilmByUser(jsonInput []byte) {
+	slog.Info("requisição de busca de filme atraves de usuario", "JSON", string(jsonInput))
+
 	var User FilmByUserRequest
 
 	err := json.Unmarshal(jsonInput, &User)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
+		slog.Error("não foi possivel interpretar o JSON", "error", err)
+		return
 	}
 
 	err = validate.ValidateID(User.UserID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("erro ao buscar usuario", "error", err)
 		return
 	}
 
 	u, err := user.FilmByUser(User.UserID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return
 	}
-	fmt.Println("user id found", u)
+
+	jsonUser, err := json.Marshal(u)
+	if err != nil {
+		slog.Error("erro ao converter para formato JSON", "error", err)
+		return
+	}
+	fmt.Println("filme encontrado", string(jsonUser))
 }

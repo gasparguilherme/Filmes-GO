@@ -2,7 +2,7 @@ package film
 
 import (
 	"encoding/json"
-	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/domain/usecases"
@@ -10,27 +10,28 @@ import (
 )
 
 func CreateFilm(jsonInput []byte) {
-	var film *entities.Film
-	err := json.Unmarshal(jsonInput, &film)
+	slog.Info("requisição de criação de filme", "JSON", string(jsonInput))
+	var requestFilm entities.Film
+	err := json.Unmarshal(jsonInput, &requestFilm)
 	if err != nil {
-		fmt.Println("error unmarshal json")
+		slog.Error("não foi possivel interpretar json", "error", err)
 		return
 	}
 
-	err = validate.ValidateFilm(film.Title, film.Director, film.Year, film.Gender)
+	err = validate.ValidateFilm(requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
 	if err != nil {
-		fmt.Println("error validating filme", err)
+		slog.Error("erro ao validar filme", "error", err)
 		return
 	}
 
-	film = usecases.CreateFilm(film.UserID, film.Title, film.Director, film.Year, film.Gender)
+	film := usecases.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
 
 	jsonFilm, err := json.Marshal(film)
 	if err != nil {
-		fmt.Println("error converting json format ", err)
+		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
 	}
 
-	fmt.Println("film successfully created!", string(jsonFilm))
+	slog.Info("filme criado com sucesso!", "filme", string(jsonFilm))
 
 }

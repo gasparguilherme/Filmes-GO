@@ -2,7 +2,7 @@ package user
 
 import (
 	"encoding/json"
-	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/domain/usecases"
@@ -10,16 +10,17 @@ import (
 )
 
 func CreateUser(jsonInput []byte) {
+	slog.Info("requisição de criação de usuario", "JSON", string(jsonInput))
 	var user *entities.User
 	err := json.Unmarshal(jsonInput, &user)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
+		slog.Error("não foi possivel interpretar o JSON", "error", err)
 		return
 	}
 
 	err = validate.ValidateUser(user.Name, user.Email)
 	if err != nil {
-		fmt.Println("validation error", err)
+		slog.Error("error ao validar usuario", "error", err)
 		return
 	}
 
@@ -27,10 +28,10 @@ func CreateUser(jsonInput []byte) {
 
 	jsonUser, err := json.Marshal(user)
 	if err != nil {
-		fmt.Println("error converting json format", err)
+		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
 	}
 
-	fmt.Println("Json generated:", string(jsonUser))
+	slog.Info("usuario criado com sucesso", "usuario", string(jsonUser))
 
 }
