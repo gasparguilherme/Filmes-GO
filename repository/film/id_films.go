@@ -1,6 +1,6 @@
 package film
 
-var idFilms int = 1
+var idFilms int
 
 func GetNextFilmID() int {
 	idFilms++
