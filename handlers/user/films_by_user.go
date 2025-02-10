@@ -2,7 +2,6 @@ package user
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/handlers/validate"
@@ -41,5 +40,5 @@ func FilmByUser(jsonInput []byte) {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
 	}
-	fmt.Println("filme encontrado", string(jsonUser))
+	slog.Info("filme encontrado", "filme", string(jsonUser))
 }

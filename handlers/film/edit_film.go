@@ -2,7 +2,6 @@ package film
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/handlers/validate"
@@ -43,6 +42,6 @@ func EditFilm(jsonInput []byte) {
 		return
 	}
 
-	fmt.Println("filme editado com sucesso", string(jsonFilm))
+	slog.Info("filme editado com sucesso", "filme", string(jsonFilm))
 
 }
