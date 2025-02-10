@@ -5,8 +5,8 @@ import (
 	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
+	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
-	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
 func FilmByID(jsonInput []byte) {
@@ -24,7 +24,7 @@ func FilmByID(jsonInput []byte) {
 		return
 	}
 
-	f, err = film.FilmByID(f.ID)
+	f, err = usecases.FilmByID(f.ID)
 	if err != nil {
 		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return

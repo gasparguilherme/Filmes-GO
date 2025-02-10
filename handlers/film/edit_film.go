@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log/slog"
 
+	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
-	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
 func EditFilm(jsonInput []byte) {
@@ -30,7 +30,7 @@ func EditFilm(jsonInput []byte) {
 		return
 	}
 
-	err = film.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	err = usecases.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
 		slog.Error("erro ao editar filme")
 		return
