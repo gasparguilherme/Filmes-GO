@@ -36,12 +36,6 @@ func EditFilm(jsonInput []byte) {
 		return
 	}
 
-	jsonFilm, err := json.Marshal(inputData)
-	if err != nil {
-		slog.Error("erro ao converter para formato JSON", "error", err)
-		return
-	}
-
-	slog.Info("filme editado com sucesso", "filme", string(jsonFilm))
+	slog.Info("filme editado com sucesso")
 
 }
