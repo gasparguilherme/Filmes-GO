@@ -25,11 +25,11 @@ func main() {
 
 	var filmByUserJson []byte = []byte(`{
 	"user_id": 1}`)
-	user.FilmByUser(filmByUserJson)
+	user.HandleGetFilmsByUserID(filmByUserJson)
 
 	var filmByIDJson []byte = []byte(`{
 	"id": 1}`)
-	film.FilmByID(filmByIDJson)
+	film.HandleGetFilmByID(filmByIDJson)
 
 	var editFilmJson []byte = []byte(`{
 	"user_id":1,
@@ -38,5 +38,5 @@ func main() {
 	"year": 1977,
 	"gender": "Ficção Cientifica"
 		}`)
-	film.EditFilm(editFilmJson)
+	film.HandleEditFilm(editFilmJson)
 }

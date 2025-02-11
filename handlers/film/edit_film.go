@@ -8,7 +8,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func EditFilm(jsonInput []byte) {
+func HandleEditFilm(jsonInput []byte) {
 	slog.Info("requisição de edição de filme", "JSON", string(jsonInput))
 	var inputData struct {
 		UserID   int `json:"user_id"`

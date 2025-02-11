@@ -5,6 +5,6 @@ import (
 )
 
 func EditFilm(filmID int, newTitle, newDirector string, newYear int, newGender string) error {
-	err := film.EditFilm(filmID, newTitle, newDirector, newYear, newGender)
+	err := film.UpdateFilm(filmID, newTitle, newDirector, newYear, newGender)
 	return err
 }

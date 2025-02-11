@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func FilmByID(jsonInput []byte) {
+func HandleGetFilmByID(jsonInput []byte) {
 	slog.Info("requisição de busca de filme por ID", "JSON", string(jsonInput))
 	var f entities.Film
 	err := json.Unmarshal(jsonInput, &f)
