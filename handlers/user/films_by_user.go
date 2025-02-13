@@ -2,32 +2,43 @@ package user
 
 import (
 	"encoding/json"
-	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func filmByUSer(jsonInput []byte) {
-	var User struct {
-		UserID int `json:"user_id"`
-	}
+type FilmByUserRequest struct {
+	UserID int `json:"user_id"`
+}
+
+func HandleGetFilmsByUserID(jsonInput []byte) {
+	slog.Info("requisição de busca de filme atraves de usuario", "JSON", string(jsonInput))
+
+	var User FilmByUserRequest
 
 	err := json.Unmarshal(jsonInput, &User)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
+		slog.Error("não foi possivel interpretar o JSON", "error", err)
+		return
 	}
 
 	err = validate.ValidateID(User.UserID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("erro ao buscar usuario", "error", err)
 		return
 	}
 
-	user, err := usecases.FilmByUser(User.UserID)
+	u, err := usecases.FilmByUser(User.UserID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return
 	}
-	fmt.Println("user id found", user)
+
+	jsonUser, err := json.Marshal(u)
+	if err != nil {
+		slog.Error("erro ao converter para formato JSON", "error", err)
+		return
+	}
+	slog.Info("filme encontrado", "filme", string(jsonUser))
 }

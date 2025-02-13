@@ -2,41 +2,40 @@ package film
 
 import (
 	"encoding/json"
-	"fmt"
+	"log/slog"
 
-	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func editFilm(jsonInput []byte) {
-
-	// minha duvida com essa estrura é em relação ao UserID, ele esta tendo alguma conexão com o campo ID na struct User
+func HandleEditFilm(jsonInput []byte) {
+	slog.Info("requisição de edição de filme", "JSON", string(jsonInput))
 	var inputData struct {
-		UserID int           `json:"user_id"`
-		Film   entities.Film `json:"film"`
+		UserID   int    `json:"user_id"`
+		Title    string `json:"title"`
+		Director string `json:"director"`
+		Year     int    `json:"year"`
+		Gender   string `json:"gender"`
 	}
 	err := json.Unmarshal(jsonInput, &inputData)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
+		slog.Error("erro ao interpretar formato JSON", "error", err)
 		return
 	}
 
-	err = validate.ValidateFilm(inputData.Film.Title, inputData.Film.Director, inputData.Film.Year,
-		inputData.Film.Gender)
+	err = validate.ValidateFilm(inputData.Title, inputData.Director, inputData.Year,
+		inputData.Gender)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("erro ao validar filme", "error", err)
 		return
 	}
 
-	film := usecases.EditFilm(inputData.UserID, inputData.Film.ID, inputData.Film.Title, inputData.Film.Director, inputData.Film.Year, inputData.Film.Gender)
-
-	jsonFilm, err := json.Marshal(film)
+	err = usecases.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
-		fmt.Println("error converting json format ", err)
+		slog.Error("erro ao editar filme", "error", err)
 		return
 	}
 
-	fmt.Println("film successfully edited", string(jsonFilm))
+	slog.Info("filme editado com sucesso")
 
 }

@@ -1,4 +1,4 @@
-package repository
+package user
 
 import "github.com/gasparguilherme/my-repository/domain/entities"
 

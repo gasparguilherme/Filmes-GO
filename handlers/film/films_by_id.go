@@ -2,37 +2,39 @@ package film
 
 import (
 	"encoding/json"
-	"fmt"
+	"log/slog"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func filmByID(jsonInput []byte) {
-	var film entities.Film
-	err := json.Unmarshal(jsonInput, &film)
+func HandleGetFilmByID(jsonInput []byte) {
+	slog.Info("requisição de busca de filme por ID", "JSON", string(jsonInput))
+	var f entities.Film
+	err := json.Unmarshal(jsonInput, &f)
 	if err != nil {
-		fmt.Println("error unmarshal json", err)
-	}
-
-	err = validate.ValidateID(film.ID)
-	if err != nil {
-		fmt.Println("validation error", err)
+		slog.Error("não foi possivel interpretar json", "error", err)
 		return
 	}
 
-	film, err = usecases.FilmByID(film.ID)
+	err = validate.ValidateID(f.ID)
 	if err != nil {
-		fmt.Println(err)
+		slog.Error("erro ao buscar ID", "error", err)
 		return
 	}
 
-	jsonFilm, err := json.Marshal(film)
+	f, err = usecases.FilmByID(f.ID)
 	if err != nil {
-		fmt.Println("error converting json format ", err)
+		slog.Error("falha ao buscar filme pelo id", "error", err)
 		return
 	}
 
-	fmt.Println("Film found", string(jsonFilm))
+	jsonFilm, err := json.Marshal(f)
+	if err != nil {
+		slog.Error("erro ao converter para formato JSON", "error", err)
+		return
+	}
+
+	slog.Info("filme encontrado", "filme", string(jsonFilm))
 }
