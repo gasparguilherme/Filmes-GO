@@ -26,7 +26,7 @@ func HandleGetFilmByID(jsonInput []byte) {
 
 	f, err = usecases.FilmByID(f.ID)
 	if err != nil {
-		slog.Error("por favor insira um valor maior que zero", "error", err)
+		slog.Error("falha ao buscar filme pelo id", "error", err)
 		return
 	}
 

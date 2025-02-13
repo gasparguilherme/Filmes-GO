@@ -11,11 +11,11 @@ import (
 func HandleEditFilm(jsonInput []byte) {
 	slog.Info("requisição de edição de filme", "JSON", string(jsonInput))
 	var inputData struct {
-		UserID   int `json:"user_id"`
-		Title    string
-		Director string
-		Year     int
-		Gender   string
+		UserID   int    `json:"user_id"`
+		Title    string `json:"title"`
+		Director string `json:"director"`
+		Year     int    `json:"year"`
+		Gender   string `json:"gender"`
 	}
 	err := json.Unmarshal(jsonInput, &inputData)
 	if err != nil {
@@ -32,7 +32,7 @@ func HandleEditFilm(jsonInput []byte) {
 
 	err = usecases.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
-		slog.Error("erro ao editar filme")
+		slog.Error("erro ao editar filme", "error", err)
 		return
 	}
 
