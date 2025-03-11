@@ -1,42 +1,23 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gasparguilherme/my-repository/handlers/film"
 	"github.com/gasparguilherme/my-repository/handlers/user"
 )
 
 func main() {
+	http.Handle("/users/create-user", http.HandlerFunc(user.CreateUser))
 
-	//userJson variavel do tipo []byte guarda o json gerado e passado como argumento na funcao CreateUSer da cmd handlers
-	var userJson []byte = []byte(`{
-		"name": "Guilherme",
-		"email": "guilherme474@gmail.com"
-		}`)
-	user.CreateUser(userJson)
+	http.Handle("/films/create-film", http.HandlerFunc(film.CreateFilm))
 
-	var filmJson []byte = []byte(`{
-		"user_id":1,
-		"title": "Star Wars",
-		"director": "George Lucas",
-		"year": 1970,
-		"gender": "Ficção Cientifica"
-		}`)
-	film.CreateFilm(filmJson)
+	http.Handle("/films/edit-film", http.HandlerFunc(film.HandleEditFilm))
 
-	var filmByUserJson []byte = []byte(`{
-	"user_id": 1}`)
-	user.HandleGetFilmsByUserID(filmByUserJson)
+	http.Handle("/films/by-id", http.HandlerFunc(film.HandleGetFilmByID))
 
-	var filmByIDJson []byte = []byte(`{
-	"id": 1}`)
-	film.HandleGetFilmByID(filmByIDJson)
+	http.Handle("/users/by-user", http.HandlerFunc(user.HandleGetFilmsByUserID))
 
-	var editFilmJson []byte = []byte(`{
-	"user_id":1,
-	"title": "Star Wars",
-	"director": "George Lucas",
-	"year": 1977,
-	"gender": "Ficção Cientifica"
-		}`)
-	film.HandleEditFilm(editFilmJson)
+	http.ListenAndServe(":8090", nil)
+
 }
