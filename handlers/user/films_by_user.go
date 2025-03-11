@@ -29,13 +29,13 @@ func HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := usecases.FilmByUser(User.UserID)
+	film, err := usecases.FilmByUser(User.UserID)
 	if err != nil {
 		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(user)
+	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
