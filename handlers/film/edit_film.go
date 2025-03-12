@@ -3,13 +3,13 @@ package film
 import (
 	"encoding/json"
 	"log/slog"
+	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func HandleEditFilm(jsonInput []byte) {
-	slog.Info("requisição de edição de filme", "JSON", string(jsonInput))
+func HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 	var inputData struct {
 		UserID   int    `json:"user_id"`
 		Title    string `json:"title"`
@@ -17,7 +17,7 @@ func HandleEditFilm(jsonInput []byte) {
 		Year     int    `json:"year"`
 		Gender   string `json:"gender"`
 	}
-	err := json.Unmarshal(jsonInput, &inputData)
+	err := json.NewDecoder(r.Body).Decode(&inputData)
 	if err != nil {
 		slog.Error("erro ao interpretar formato JSON", "error", err)
 		return
