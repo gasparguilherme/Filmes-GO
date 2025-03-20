@@ -3,6 +3,7 @@ package user
 import (
 	"encoding/json"
 	"log/slog"
+	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
@@ -12,12 +13,11 @@ type FilmByUserRequest struct {
 	UserID int `json:"user_id"`
 }
 
-func HandleGetFilmsByUserID(jsonInput []byte) {
-	slog.Info("requisição de busca de filme atraves de usuario", "JSON", string(jsonInput))
+func HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 
 	var User FilmByUserRequest
 
-	err := json.Unmarshal(jsonInput, &User)
+	err := json.NewDecoder(r.Body).Decode(&User)
 	if err != nil {
 		slog.Error("não foi possivel interpretar o JSON", "error", err)
 		return
@@ -29,16 +29,15 @@ func HandleGetFilmsByUserID(jsonInput []byte) {
 		return
 	}
 
-	u, err := usecases.FilmByUser(User.UserID)
+	film, err := usecases.FilmByUser(User.UserID)
 	if err != nil {
 		slog.Error("por favor insira um valor maior que zero", "error", err)
 		return
 	}
 
-	jsonUser, err := json.Marshal(u)
+	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
 	}
-	slog.Info("filme encontrado", "filme", string(jsonUser))
 }
