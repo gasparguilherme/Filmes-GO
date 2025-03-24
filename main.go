@@ -8,16 +8,14 @@ import (
 )
 
 func main() {
-	http.Handle("/users/create-user", http.HandlerFunc(user.CreateUser))
+	mux := http.NewServeMux()
 
-	http.Handle("/films/create-film", http.HandlerFunc(film.CreateFilm))
+	mux.Handle("/users/create-user", http.HandlerFunc(user.CreateUser))
+	mux.Handle("/films/create-film", http.HandlerFunc(film.CreateFilm))
+	mux.Handle("/films/edit-film", http.HandlerFunc(film.HandleEditFilm))
+	mux.Handle("/films/by-id", http.HandlerFunc(film.HandleGetFilmByID))
+	mux.Handle("/users/by-user", http.HandlerFunc(user.HandleGetFilmsByUserID))
 
-	http.Handle("/films/edit-film", http.HandlerFunc(film.HandleEditFilm))
-
-	http.Handle("/films/by-id", http.HandlerFunc(film.HandleGetFilmByID))
-
-	http.Handle("/users/by-user", http.HandlerFunc(user.HandleGetFilmsByUserID))
-
-	http.ListenAndServe(":8090", nil)
+	http.ListenAndServe(":9990", mux)
 
 }
