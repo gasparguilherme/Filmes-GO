@@ -8,18 +8,17 @@ import (
 
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
-	"github.com/gorilla/mux"
 )
 
 func HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
-	vars := mux.Vars(r)
-	idStr := vars["id"]
+	rawID := r.PathValue("id")
 
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(rawID)
 	if err != nil {
-		slog.Error("erro ao converter id para inteiro", "error", err)
+		slog.Error("erro ao converter id para inteiro", "id", rawID, "error", err)
 		http.Error(w, "ID invalido", http.StatusBadRequest)
+		return
 	}
 
 	err = validate.ValidateID(id)
