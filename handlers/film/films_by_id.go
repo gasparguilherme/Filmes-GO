@@ -4,35 +4,42 @@ import (
 	"encoding/json"
 	"log/slog"
 	"net/http"
+	"strconv"
 
-	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/domain/usecases"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
 func HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
-	var f entities.Film
-	err := json.NewDecoder(r.Body).Decode(&f)
+
+	rawID := r.PathValue("id")
+
+	id, err := strconv.Atoi(rawID)
 	if err != nil {
-		slog.Error("não foi possivel interpretar json", "error", err)
+		slog.Error("erro ao converter id para inteiro", "id", rawID, "error", err)
+		http.Error(w, "ID invalido", http.StatusBadRequest)
 		return
 	}
 
-	err = validate.ValidateID(f.ID)
+	err = validate.ValidateID(id)
 	if err != nil {
 		slog.Error("erro ao buscar ID", "error", err)
+		http.Error(w, "ID invalido", http.StatusBadRequest)
 		return
+
 	}
 
-	f, err = usecases.FilmByID(f.ID)
+	film, err := usecases.FilmByID(id)
 	if err != nil {
-		slog.Error("falha ao buscar filme", "error", err)
+		slog.Error("erro ao buscar filme", "error", err)
+		http.Error(w, "falha ao buscar filme", http.StatusInternalServerError)
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(f)
+	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
+		http.Error(w, "erro interno", http.StatusInternalServerError)
 		return
 	}
 
