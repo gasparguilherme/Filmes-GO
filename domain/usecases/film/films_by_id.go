@@ -1,4 +1,4 @@
-package usecases
+package film
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
