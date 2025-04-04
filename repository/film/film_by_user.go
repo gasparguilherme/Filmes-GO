@@ -1,21 +1,21 @@
-package user
+package film
 
 import (
 	"errors"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/repository/film"
+	"github.com/gasparguilherme/my-repository/repository/user"
 )
 
 func FindFilmsByUserID(id int) ([]entities.Film, error) {
 
-	for _, user := range GetUsers() {
+	for _, user := range user.GetUsers() {
 		if user.ID == id {
-			for _, film := range film.GetFilms() {
+			for _, film := range GetFilms() {
 				if film.UserID == id {
 				}
 			}
-			return film.GetFilms(), nil
+			return GetFilms(), nil
 		}
 	}
 	return nil, errors.New("user not found")

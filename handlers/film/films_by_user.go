@@ -1,4 +1,4 @@
-package user
+package film
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
@@ -37,7 +37,7 @@ func HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	film, err := usecases.FilmByUser(userID_int)
+	film, err := film.FilmByUser(userID_int)
 	if err != nil {
 		slog.Error("erro ao buscar filmes de usuario", "user_id", userID_int, "error", err)
 		http.Error(w, "algo deu errado :(", http.StatusInternalServerError)

@@ -1,4 +1,4 @@
-package usecases
+package user
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"

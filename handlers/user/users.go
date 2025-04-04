@@ -6,27 +6,27 @@ import (
 	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/domain/usecases/user"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	var user *entities.User
-	err := json.NewDecoder(r.Body).Decode(&user)
+	var userRequest *entities.User
+	err := json.NewDecoder(r.Body).Decode(&userRequest)
 	if err != nil {
 		slog.Error("não foi possivel interpretar o JSON", "error", err)
 		return
 	}
 
-	err = validate.ValidateUser(user.Name, user.Email)
+	err = validate.ValidateUser(userRequest.Name, userRequest.Email)
 	if err != nil {
 		slog.Error("error ao validar usuario", "error", err)
 		return
 	}
 
-	user = usecases.NewUser(user.Name, user.Email)
+	createdUser := user.NewUser(userRequest.Name, userRequest.Email)
 
-	err = json.NewEncoder(w).Encode(user)
+	err = json.NewEncoder(w).Encode(createdUser)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		return
