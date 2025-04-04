@@ -15,7 +15,7 @@ func main() {
 	mux.Handle("PUT /film", http.HandlerFunc(film.HandleEditFilm))
 
 	mux.Handle("GET /film/{id}", http.HandlerFunc(film.HandleGetFilmByID))
-	mux.Handle("GET /film", http.HandlerFunc(user.HandleGetFilmsByUserID))
+	mux.Handle("GET /film", http.HandlerFunc(film.HandleGetFilmsByUserID))
 
 	http.ListenAndServe(":8080", mux)
 

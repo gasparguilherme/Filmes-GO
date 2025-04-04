@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
@@ -30,7 +30,7 @@ func HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = usecases.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	err = film.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
 		slog.Error("erro ao editar filme", "error", err)
 		return

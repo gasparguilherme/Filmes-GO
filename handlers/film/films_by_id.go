@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
@@ -29,7 +29,7 @@ func HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	film, err := usecases.FilmByID(id)
+	film, err := film.FilmByID(id)
 	if err != nil {
 		slog.Error("erro ao buscar filme", "error", err)
 		http.Error(w, "falha ao buscar filme", http.StatusInternalServerError)

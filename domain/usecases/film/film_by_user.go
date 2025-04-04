@@ -1,14 +1,14 @@
-package usecases
+package film
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func FilmByID(id int) (entities.Film, error) {
-	film, err := film.FindFilmByID(id)
+func FilmByUser(id int) ([]entities.Film, error) {
+	films, err := film.FindFilmsByUserID(id)
 	if err != nil {
-		return entities.Film{}, err
+		return nil, err
 	}
-	return film, nil
+	return films, nil
 }

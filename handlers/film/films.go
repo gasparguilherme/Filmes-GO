@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases"
+	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
@@ -25,7 +25,7 @@ func CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	film := usecases.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
+	film := film.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
 
 	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
