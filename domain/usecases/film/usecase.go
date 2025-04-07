@@ -1,4 +1,4 @@
 package film
 
-type Film struct {
+type Usecase struct {
 }
