@@ -1,4 +1,4 @@
 package user
 
-type Handler struct {
+type User struct {
 }

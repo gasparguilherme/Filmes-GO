@@ -1,4 +1,4 @@
 package film
 
-type Handler struct {
+type Film struct {
 }
