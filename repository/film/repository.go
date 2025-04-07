@@ -1,4 +1,4 @@
 package film
 
-type Repository struct {
+type Film struct {
 }

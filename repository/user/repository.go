@@ -1,4 +1,4 @@
 package user
 
-type Repository struct {
+type User struct {
 }
