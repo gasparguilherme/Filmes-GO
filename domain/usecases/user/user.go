@@ -5,7 +5,7 @@ import (
 	repository "github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func NewUser(name, email string) *entities.User {
+func (Usecase) NewUser(name, email string) *entities.User {
 	user := entities.User{
 		Name:  name,
 		Email: email,

@@ -5,7 +5,7 @@ import (
 	repository "github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func CreateFilm(userID int, title string, director string, year int, gender string) *entities.Film {
+func (Usecase) CreateFilm(userID int, title string, director string, year int, gender string) *entities.Film {
 	film := entities.Film{
 		Title:    title,
 		Director: director,

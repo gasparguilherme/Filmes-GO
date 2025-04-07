@@ -10,7 +10,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
+func (Handler) HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	rawID := r.PathValue("id")
 
@@ -29,7 +29,8 @@ func HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	film, err := film.FilmByID(id)
+	usecase := film.Usecase{}
+	film, err := usecase.FilmByID(id)
 	if err != nil {
 		slog.Error("erro ao buscar filme", "error", err)
 		http.Error(w, "falha ao buscar filme", http.StatusInternalServerError)

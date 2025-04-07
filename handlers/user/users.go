@@ -10,7 +10,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+func (Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var userRequest *entities.User
 	err := json.NewDecoder(r.Body).Decode(&userRequest)
 	if err != nil {
@@ -24,7 +24,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser := user.NewUser(userRequest.Name, userRequest.Email)
+	usecase := user.Usecase{}
+	createdUser := usecase.NewUser(userRequest.Name, userRequest.Email)
 
 	err = json.NewEncoder(w).Encode(createdUser)
 	if err != nil {

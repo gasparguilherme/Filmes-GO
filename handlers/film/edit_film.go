@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func HandleEditFilm(w http.ResponseWriter, r *http.Request) {
+func (Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 	var inputData struct {
 		UserID   int    `json:"user_id"`
 		Title    string `json:"title"`
@@ -30,7 +30,8 @@ func HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = film.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	usecase := film.Usecase{}
+	err = usecase.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
 		slog.Error("erro ao editar filme", "error", err)
 		return
