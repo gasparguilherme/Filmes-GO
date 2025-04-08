@@ -2,21 +2,21 @@ package film
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	repository "github.com/gasparguilherme/my-repository/repository/film"
+	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
 func (Usecase) CreateFilm(userID int, title string, director string, year int, gender string) *entities.Film {
-	film := entities.Film{
+	newFilm := entities.Film{
 		Title:    title,
 		Director: director,
 		Year:     year,
 		Gender:   gender,
 		UserID:   userID,
-		ID:       repository.GetNextFilmID(),
+		ID:       film.GetNextFilmID(),
 	}
-	filmRepository := repository.Repository{}
-	filmRepository.SaveFilms(film)
+	filmRepository := film.Repository{}
+	filmRepository.SaveFilms(newFilm)
 
-	return &film
+	return &newFilm
 
 }
