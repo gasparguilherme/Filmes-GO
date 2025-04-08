@@ -5,10 +5,12 @@ import (
 	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func FilmByUser(id int) ([]entities.Film, error) {
-	films, err := film.FindFilmsByUserID(id)
+func (Usecase) FilmByUser(id int) ([]entities.Film, error) {
+	filmRepository := film.Repository{}
+	filmFound, err := filmRepository.FindFilmsByUserID(id)
 	if err != nil {
 		return nil, err
 	}
-	return films, nil
+	return filmFound, nil
+
 }
