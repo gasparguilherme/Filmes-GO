@@ -6,9 +6,11 @@ import (
 )
 
 func (Usecase) FilmByUser(id int) ([]entities.Film, error) {
-	films, err := film.FindFilmsByUserID(id)
+	filmRepository := film.Repository{}
+	filmFound, err := filmRepository.FindFilmsByUserID(id)
 	if err != nil {
 		return nil, err
 	}
-	return films, nil
+	return filmFound, nil
+
 }

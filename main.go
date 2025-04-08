@@ -9,13 +9,15 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
+	userHandler := user.Handler{}
+	filmHandler := film.Handler{}
 
-	mux.Handle("POST /user", http.HandlerFunc(user.CreateUser))
-	mux.Handle("POST /film", http.HandlerFunc(film.CreateFilm))
-	mux.Handle("PUT /film", http.HandlerFunc(film.HandleEditFilm))
+	mux.Handle("POST /user", http.HandlerFunc(userHandler.CreateUser))
+	mux.Handle("POST /film", http.HandlerFunc(filmHandler.CreateFilm))
+	mux.Handle("PUT /film", http.HandlerFunc(filmHandler.HandleEditFilm))
 
-	mux.Handle("GET /film/{id}", http.HandlerFunc(film.HandleGetFilmByID))
-	mux.Handle("GET /film", http.HandlerFunc(film.HandleGetFilmsByUserID))
+	mux.Handle("GET /film/{id}", http.HandlerFunc(filmHandler.HandleGetFilmByID))
+	mux.Handle("GET /film", http.HandlerFunc(filmHandler.HandleGetFilmsByUserID))
 
 	http.ListenAndServe(":8080", mux)
 

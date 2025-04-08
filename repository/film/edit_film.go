@@ -2,7 +2,7 @@ package film
 
 import "errors"
 
-func UpdateFilm(filmID int, newTitle string, newDirector string, newYear int, newGender string) error {
+func (Repository) UpdateFilm(filmID int, newTitle string, newDirector string, newYear int, newGender string) error {
 	films := GetFilms()
 	for i, film := range films {
 		if film.ID == filmID {

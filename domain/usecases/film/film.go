@@ -14,7 +14,9 @@ func (Usecase) CreateFilm(userID int, title string, director string, year int, g
 		UserID:   userID,
 		ID:       repository.GetNextFilmID(),
 	}
-	repository.SaveFilms(film)
+	filmRepository := repository.Repository{}
+	filmRepository.SaveFilms(film)
+
 	return &film
 
 }

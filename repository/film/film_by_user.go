@@ -7,7 +7,7 @@ import (
 	"github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func FindFilmsByUserID(id int) ([]entities.Film, error) {
+func (Repository) FindFilmsByUserID(id int) ([]entities.Film, error) {
 
 	for _, user := range user.GetUsers() {
 		if user.ID == id {

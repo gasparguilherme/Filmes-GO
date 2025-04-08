@@ -11,7 +11,9 @@ func (Usecase) NewUser(name, email string) *entities.User {
 		Email: email,
 		ID:    repository.GetNextUserID(),
 	}
-	repository.SaveUser(user)
+	userRepository := repository.Repository{}
+	userRepository.SaveUser(user)
+
 	return &user
 
 }
