@@ -2,12 +2,10 @@ package film
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/repository/film"
 )
 
-func (Usecase) FilmByUser(id int) ([]entities.Film, error) {
-	filmRepository := film.Repository{}
-	filmFound, err := filmRepository.FindFilmsByUserID(id)
+func (u Usecase) FilmByUser(id int) ([]entities.Film, error) {
+	filmFound, err := u.repository.FindFilmsByUserID(id)
 	if err != nil {
 		return nil, err
 	}
