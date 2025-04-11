@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (Handler) HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 
 	// acessa o query param "user_id" da URL
 	userID := r.URL.Query().Get("user_id")
@@ -37,8 +36,7 @@ func (Handler) HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usecase := film.Usecase{}
-	film, err := usecase.FilmByUser(userID_int)
+	film, err := h.usecase.FindFilmsByUserID(userID_int)
 	if err != nil {
 		slog.Error("erro ao buscar filmes de usuario", "user_id", userID_int, "error", err)
 		http.Error(w, "algo deu errado :(", http.StatusInternalServerError)

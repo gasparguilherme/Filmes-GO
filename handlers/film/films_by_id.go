@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (Handler) HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	rawID := r.PathValue("id")
 
@@ -29,8 +28,7 @@ func (Handler) HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	usecase := film.Usecase{}
-	film, err := usecase.FilmByID(id)
+	film, err := h.usecase.FindFilmByID(id)
 	if err != nil {
 		slog.Error("erro ao buscar filme", "error", err)
 		http.Error(w, "falha ao buscar filme", http.StatusInternalServerError)
