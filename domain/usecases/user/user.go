@@ -2,17 +2,15 @@ package user
 
 import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/repository/user"
 )
 
-func (Usecase) NewUser(name, email string) *entities.User {
+func (u Usecase) NewUser(name, email string) *entities.User {
 	newUser := entities.User{
 		Name:  name,
 		Email: email,
-		ID:    user.GetNextUserID(),
+		ID:    u.repository.GetNextUserID(),
 	}
-	userRepository := user.Repository{}
-	userRepository.SaveUser(newUser)
+	u.repository.SaveUser(newUser)
 
 	return &newUser
 
