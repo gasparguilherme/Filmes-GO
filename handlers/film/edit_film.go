@@ -5,11 +5,10 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
+func (h Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 	var inputData struct {
 		UserID   int    `json:"user_id"`
 		Title    string `json:"title"`
@@ -30,8 +29,7 @@ func (Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usecase := film.Usecase{}
-	err = usecase.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	err = h.usecase.UpdateFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
 		slog.Error("erro ao editar filme", "error", err)
 		return

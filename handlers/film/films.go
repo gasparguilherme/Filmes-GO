@@ -6,11 +6,10 @@ import (
 	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases/film"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
+func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 
 	var requestFilm entities.Film
 	err := json.NewDecoder(r.Body).Decode(&requestFilm)
@@ -25,8 +24,7 @@ func (Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usecase := film.Usecase{}
-	film := usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
+	film := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
 
 	err = json.NewEncoder(w).Encode(film)
 	if err != nil {

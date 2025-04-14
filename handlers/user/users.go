@@ -6,11 +6,10 @@ import (
 	"net/http"
 
 	"github.com/gasparguilherme/my-repository/domain/entities"
-	"github.com/gasparguilherme/my-repository/domain/usecases/user"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
+func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var userRequest *entities.User
 	err := json.NewDecoder(r.Body).Decode(&userRequest)
 	if err != nil {
@@ -24,8 +23,7 @@ func (Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usecase := user.Usecase{}
-	createdUser := usecase.NewUser(userRequest.Name, userRequest.Email)
+	createdUser := h.usecase.NewUser(userRequest.Name, userRequest.Email)
 
 	err = json.NewEncoder(w).Encode(createdUser)
 	if err != nil {
