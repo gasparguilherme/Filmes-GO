@@ -2,7 +2,7 @@ package film
 
 var idFilms int
 
-func GetNextFilmID() int {
+func (Repository) GetNextFilmID() int {
 	idFilms++
 	return idFilms
 }

@@ -2,7 +2,7 @@ package user
 
 var idUsers int
 
-func GetNextUserID() int {
+func (Repository) GetNextUserID() int {
 	idUsers++
 	return idUsers
 }
