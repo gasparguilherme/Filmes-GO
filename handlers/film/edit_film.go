@@ -29,7 +29,7 @@ func (h Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.usecase.UpdateFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
+	err = h.usecase.EditFilm(inputData.UserID, inputData.Title, inputData.Director, inputData.Year, inputData.Gender)
 	if err != nil {
 		slog.Error("erro ao editar filme", "error", err)
 		return

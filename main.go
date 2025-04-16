@@ -1,8 +1,12 @@
 package main
 
-import "github.com/gasparguilherme/my-repository/api"
+import (
+	"github.com/gasparguilherme/my-repository/api"
+)
 
 func main() {
-	api.StartApp()
+	userHandler := initUser()
+	filmHandler := initFilm()
 
+	api.StartApp(userHandler, filmHandler)
 }

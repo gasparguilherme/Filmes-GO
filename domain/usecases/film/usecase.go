@@ -5,7 +5,8 @@ type Usecase struct {
 }
 
 func NewUsecase(r Repository) Usecase {
-	return Usecase{
+	usecaseConcreto := Usecase{
 		repository: r,
 	}
+	return usecaseConcreto
 }
