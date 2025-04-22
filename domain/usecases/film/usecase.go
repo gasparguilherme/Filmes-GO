@@ -4,6 +4,9 @@ type Usecase struct {
 	repository Repository
 }
 
-func NewUsecase() Usecase {
-	return Usecase{}
+func NewUsecase(r Repository) Usecase {
+	usecaseConcreto := Usecase{
+		repository: r,
+	}
+	return usecaseConcreto
 }

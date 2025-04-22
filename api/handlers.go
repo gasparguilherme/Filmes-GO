@@ -1,14 +1,16 @@
 package api
 
-import "github.com/gasparguilherme/my-repository/domain/entities"
+import (
+	"net/http"
+)
 
 type FilmHandler interface {
-	EditFilm(filmID int, newTitle, newDirector string, newYear int, newGender string)
-	FilmByID(id int) (entities.Film, error)
-	FilmByUser(id int) ([]entities.Film, error)
-	CreateFilm(userID int, title string, director string, year int, gender string)
+	HandleEditFilm(w http.ResponseWriter, r *http.Request)
+	HandleGetFilmByID(w http.ResponseWriter, r *http.Request)
+	HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request)
+	HandleCreateFilm(w http.ResponseWriter, r *http.Request)
 }
 
 type UserHandler interface {
-	NewUser(name, email string) *entities.User
+	CreateUser(w http.ResponseWriter, r *http.Request)
 }
