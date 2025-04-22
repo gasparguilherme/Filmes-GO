@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (h Handler) HandleGetFilmByID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) GetFilmByID(w http.ResponseWriter, r *http.Request) {
 
 	rawID := r.PathValue("id")
 

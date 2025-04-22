@@ -8,7 +8,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (h Handler) HandleEditFilm(w http.ResponseWriter, r *http.Request) {
+func (h Handler) EditFilm(w http.ResponseWriter, r *http.Request) {
 	var inputData struct {
 		UserID   int    `json:"user_id"`
 		Title    string `json:"title"`

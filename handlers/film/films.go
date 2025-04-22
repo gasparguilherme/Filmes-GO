@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (h Handler) HandleCreateFilm(w http.ResponseWriter, r *http.Request) {
+func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 
 	var requestFilm entities.Film
 	err := json.NewDecoder(r.Body).Decode(&requestFilm)

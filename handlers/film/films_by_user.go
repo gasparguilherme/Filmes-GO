@@ -9,7 +9,7 @@ import (
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
-func (h Handler) HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) GetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 
 	// acessa o query param "user_id" da URL
 	userID := r.URL.Query().Get("user_id")
