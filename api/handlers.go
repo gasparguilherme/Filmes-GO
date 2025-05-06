@@ -5,10 +5,10 @@ import (
 )
 
 type FilmHandler interface {
-	HandleEditFilm(w http.ResponseWriter, r *http.Request)
-	HandleGetFilmByID(w http.ResponseWriter, r *http.Request)
-	HandleGetFilmsByUserID(w http.ResponseWriter, r *http.Request)
-	HandleCreateFilm(w http.ResponseWriter, r *http.Request)
+	EditFilm(w http.ResponseWriter, r *http.Request)
+	GetFilmByID(w http.ResponseWriter, r *http.Request)
+	GetFilmsByUserID(w http.ResponseWriter, r *http.Request)
+	CreateFilm(w http.ResponseWriter, r *http.Request)
 }
 
 type UserHandler interface {

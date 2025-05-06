@@ -10,7 +10,6 @@ func initFilm() handler.Handler {
 	r := repository.NewRepository()
 	u := usecase.NewUsecase(r)
 	h := handler.NewHandler(u)
-
 	return h
 
 }
