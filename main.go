@@ -24,6 +24,12 @@ func main() {
 	}
 	defer conn.Close(ctx)
 
+	//testa a conexao
+	if err := conn.Ping(ctx); err != nil {
+		slog.Error("Error ao fazer ping no banco de dados", "error", err.Error())
+		os.Exit(1)
+	}
+
 	slog.Info("Conexão estabelcida com sucesso")
 
 	api.StartApp(userHandler, filmHandler)
