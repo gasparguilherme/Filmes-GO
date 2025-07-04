@@ -23,7 +23,11 @@ func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser := h.usecase.NewUser(userRequest.Name, userRequest.Email)
+	createdUser, err := h.usecase.NewUser(userRequest.Name, userRequest.Email)
+	if err != nil {
+		slog.Error("Erro ao criar usuario", "error", err)
+		return
+	}
 
 	err = json.NewEncoder(w).Encode(createdUser)
 	if err != nil {

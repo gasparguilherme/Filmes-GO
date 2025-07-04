@@ -4,14 +4,16 @@ import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
 )
 
-func (u Usecase) NewUser(name, email string) *entities.User {
+func (u Usecase) NewUser(name, email string) (*entities.User, error) {
 	newUser := entities.User{
 		Name:  name,
 		Email: email,
-		ID:    u.repository.GetNextUserID(),
 	}
-	u.repository.SaveUser(newUser)
-
-	return &newUser
+	id, err := u.repository.SaveUser(newUser)
+	if err != nil {
+		return nil, err
+	}
+	newUser.ID = id
+	return &newUser, nil
 
 }
