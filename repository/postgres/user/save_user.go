@@ -18,7 +18,7 @@ func (r Repository) SaveUser(data entities.User) (int, error) {
 	`
 
 	var id int
-	err := r.conn.QueryRow(context.TODO(), query, data.Name, data.Email).Scan(id)
+	err := r.connectionInstance.QueryRow(context.TODO(), query, data.Name, data.Email).Scan(&id)
 	if err != nil {
 		return 0, fmt.Errorf("executando query: %w", err)
 

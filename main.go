@@ -12,9 +12,6 @@ import (
 func main() {
 	ctx := context.Background()
 
-	userHandler := initUser()
-	filmHandler := initFilm()
-
 	dbURL := "postgres://postgres:senha@localhost:5433/films_go"
 
 	conn, err := pgx.Connect(ctx, dbURL)
@@ -31,6 +28,9 @@ func main() {
 	}
 
 	slog.Info("Conexão estabelcida com sucesso")
+
+	userHandler := initUser(conn)
+	filmHandler := initFilm()
 
 	api.StartApp(userHandler, filmHandler)
 
