@@ -7,25 +7,21 @@ import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
 )
 
-func (r Repository) SaverFilm(data entities.Film) (int, error) {
+func (r Repository) SaveFilm(data entities.Film, created_by int) (int, error) {
 	query := `
-		INSERT INTO films (title, director, year, gender, created_by)
-		VALUES(
-			$1, 
-			$2,
-			$3,
-			$4,
-			$5
-	)
-	RETURNING id;	
+	INSERT INTO films (title, director, year, genre, userID)
+	VALUES ($1, 
+			$2, 
+			$3, 
+			$4, 
+			$5)
+	RETURNING id;
 	`
 	var id int
-	err := r.conn.QueryRow(context.TODO(), query, data.Title, data.Director, data.Year, data.Gender, data.UserID).Scan(id)
+	err := r.connectionInstance.QueryRow(context.TODO(), query, data.Title, data.Director, data.Year, data.Genre,
+		data.UserID).Scan(&id)
 	if err != nil {
-		return 0, fmt.Errorf("executando query: %w", err)
-
+		return 0, fmt.Errorf("erro ao salvar filme: %w", err)
 	}
-
 	return id, nil
-
 }
