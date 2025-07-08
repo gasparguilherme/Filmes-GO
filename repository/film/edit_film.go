@@ -9,7 +9,7 @@ func (Repository) UpdateFilm(filmID int, newTitle string, newDirector string, ne
 			films[i].Title = newTitle
 			films[i].Director = newDirector
 			films[i].Year = newYear
-			films[i].Gender = newGender
+			films[i].Genre = newGender
 			return nil
 
 		}

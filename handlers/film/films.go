@@ -18,13 +18,13 @@ func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = validate.ValidateFilm(requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
+	err = validate.ValidateFilm(requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
 	if err != nil {
 		slog.Error("erro ao validar filme", "error", err)
 		return
 	}
 
-	film := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Gender)
+	film := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
 
 	err = json.NewEncoder(w).Encode(film)
 	if err != nil {

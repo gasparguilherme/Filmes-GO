@@ -4,7 +4,7 @@ type Film struct {
 	Title    string `json:"title"`
 	Director string `json:"director"`
 	Year     int    `json:"year"`
-	Gender   string `json:"gender"`
+	Genre    string `json:"genre"`
 	ID       int    `json:"id"`
 	UserID   int    `json:"user_id"`
 }
