@@ -4,17 +4,20 @@ import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
 )
 
-func (u Usecase) CreateFilm(userID int, title string, director string, year int, gender string) *entities.Film {
+func (u Usecase) CreateFilm(userID int, title string, director string, year int, genre string) (*entities.Film, error) {
 	newFilm := entities.Film{
 		Title:    title,
 		Director: director,
 		Year:     year,
-		Gender:   gender,
-		UserID:   userID,
-		ID:       u.repository.GetNextFilmID(),
+		Genre:    genre,
+		User_ID:  userID,
 	}
-	u.repository.SaveFilms(newFilm)
 
-	return &newFilm
+	id, err := u.repository.SaveFilm(newFilm)
+	if err != nil {
+		return nil, err
+	}
 
+	newFilm.ID = id
+	return &newFilm, nil
 }
