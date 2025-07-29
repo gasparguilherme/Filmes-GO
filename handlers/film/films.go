@@ -24,7 +24,7 @@ func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	film, err := h.usecase.CreateFilm(requestFilm.User_ID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
+	film, err := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
 	if err != nil {
 		slog.Error("erro ao criar filme")
 		return

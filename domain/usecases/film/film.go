@@ -10,7 +10,7 @@ func (u Usecase) CreateFilm(userID int, title string, director string, year int,
 		Director: director,
 		Year:     year,
 		Genre:    genre,
-		User_ID:  userID,
+		UserID:   userID,
 	}
 
 	id, err := u.repository.SaveFilm(newFilm)

@@ -9,8 +9,8 @@ import (
 
 func (r Repository) FindFilmsByUserID(userID int) ([]entities.Film, error) {
 	query := `
-		SELECT id, title, director, year, genre, user_id
-		FROM filmes
+		SELECT id, title, director, year, genre, userID
+		FROM films
 		WHERE user_id = $1;
 	`
 
@@ -24,7 +24,7 @@ func (r Repository) FindFilmsByUserID(userID int) ([]entities.Film, error) {
 
 	for rows.Next() { //entender melhor depois
 		var f entities.Film
-		err := rows.Scan(&f.ID, &f.Title, &f.Director, &f.Year, &f.Genre, &f.User_ID)
+		err := rows.Scan(&f.ID, &f.Title, &f.Director, &f.Year, &f.Genre, &f.UserID)
 		if err != nil {
 			return nil, fmt.Errorf("erro ao escanear filme: %w", err)
 		}
