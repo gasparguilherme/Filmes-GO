@@ -7,7 +7,7 @@ import (
 	"github.com/gasparguilherme/my-repository/domain/entities"
 )
 
-func (r Repository) SaverFilm(data entities.Film) (int, error) {
+func (r Repository) SaveFilm(data entities.Film) (int, error) {
 	query := `
 		INSERT INTO films (title, director, year, gender, created_by)
 		VALUES(
