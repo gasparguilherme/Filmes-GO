@@ -3,9 +3,8 @@ package film
 import "github.com/gasparguilherme/my-repository/domain/entities"
 
 type Repository interface {
-	UpdateFilm(filmID int, newTitle string, newDirector string, newYear int, newGender string) error
-	FindFilmsByUserID(id int) ([]entities.Film, error)
-	GetNextFilmID() int
-	SaveFilms(data entities.Film)
-	FindFilmByID(id int) (entities.Film, error)
+	UpdateFilm(data entities.Film) error
+	FindFilmsByUserID(userID int) ([]entities.Film, error)
+	SaveFilm(data entities.Film) (int, error)        // corrigido
+	FindFilmByID(filmID int) (*entities.Film, error) // corrigido
 }

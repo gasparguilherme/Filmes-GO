@@ -24,7 +24,7 @@ func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	film := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
+	film, err := h.usecase.CreateFilm(requestFilm.UserID, requestFilm.Title, requestFilm.Director, requestFilm.Year, requestFilm.Genre)
 
 	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
