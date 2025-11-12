@@ -28,9 +28,8 @@ func main() {
 	}
 
 	slog.Info("Conexão estabelcida com sucesso")
-
-	userHandler := initUser(conn)
-	filmHandler := initFilm(conn)
+	userHandler := InitUser(conn)
+	filmHandler := InitFilm(conn)
 
 	api.StartApp(userHandler, filmHandler)
 

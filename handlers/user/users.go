@@ -10,7 +10,7 @@ import (
 )
 
 func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	var userRequest *entities.User
+	var userRequest entities.User
 	err := json.NewDecoder(r.Body).Decode(&userRequest)
 	if err != nil {
 		slog.Error("não foi possivel interpretar o JSON", "error", err)
@@ -23,7 +23,7 @@ func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser, err := h.usecase.NewUser(userRequest.Name, userRequest.Email)
+	createdUser, err := h.usecase.NewUser(userRequest.Name, userRequest.Email, userRequest.Password)
 	if err != nil {
 		slog.Error("Erro ao criar usuario", "error", err)
 		return

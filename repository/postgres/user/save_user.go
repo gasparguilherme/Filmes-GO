@@ -9,16 +9,18 @@ import (
 
 func (r Repository) SaveUser(data entities.User) (int, error) {
 	query := `
-	INSERT INTO users(name, email)
+	INSERT INTO users(name, email, password)
 	VALUES(
 		$1, 
-		$2
+		$2,
+		$3
 	)
 	RETURNING id;
 	`
 
 	var id int
-	err := r.connectionInstance.QueryRow(context.TODO(), query, data.Name, data.Email).Scan(&id)
+
+	err := r.connectionInstance.QueryRow(context.TODO(), query, data.Name, data.Email, data.Password).Scan(&id)
 	if err != nil {
 		return 0, fmt.Errorf("executando query: %w", err)
 
