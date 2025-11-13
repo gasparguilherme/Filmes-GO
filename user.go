@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func initUser(conn *pgx.Conn) handler.Handler {
+func InitUser(conn *pgx.Conn) handler.Handler {
 	r := user.NewPostgresRepository(conn)
 	u := usecase.NewUsecase(r)
 	h := handler.NewHandler(u)

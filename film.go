@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func initFilm(conn *pgx.Conn) handler.Handler {
+func InitFilm(conn *pgx.Conn) handler.Handler {
 	r := repository.NewPostgresRepository(conn)
 	u := usecase.NewUsecase(r)
 	h := handler.NewHandler(u)
