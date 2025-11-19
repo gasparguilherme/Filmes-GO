@@ -1,8 +1,6 @@
 package user
 
 import (
-	"fmt"
-
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -13,8 +11,6 @@ func (u Usecase) NewUser(name, email, password string) (*entities.User, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("Senha criptografada (hash):", string(hashedPassword))
 
 	newUser := entities.User{
 		Name:     name,

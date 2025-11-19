@@ -5,11 +5,11 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/gasparguilherme/my-repository/domain/entities"
+	"github.com/gasparguilherme/my-repository/domain/usecases/user/login"
 )
 
 func (h Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
-	var loginData entities.Login
+	var loginData login.Login
 
 	err := json.NewDecoder(r.Body).Decode(&loginData)
 	if err != nil {
@@ -20,8 +20,8 @@ func (h Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	userLogged, err := h.usecase.Login(loginData)
 	if err != nil {
-		slog.Error("usuário inválido", "error", err)
-		http.Error(w, err.Error(), http.StatusUnauthorized)
+		slog.Error("dados de login inválido", "error", err)
+		http.Error(w, "dados de login inválido", http.StatusUnauthorized)
 		return
 	}
 

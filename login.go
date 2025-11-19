@@ -1,9 +1,9 @@
 package main
 
 import (
-	usecase "github.com/gasparguilherme/my-repository/domain/usecases/login"
-	handler "github.com/gasparguilherme/my-repository/handlers/login"
-	repository "github.com/gasparguilherme/my-repository/repository/postgres/login"
+	usecase "github.com/gasparguilherme/my-repository/domain/usecases/user/login"
+	handler "github.com/gasparguilherme/my-repository/handlers/user/login"
+	repository "github.com/gasparguilherme/my-repository/repository/postgres/user/login"
 	"github.com/jackc/pgx/v5"
 )
 

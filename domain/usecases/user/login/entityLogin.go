@@ -1,4 +1,4 @@
-package entities
+package login
 
 type Login struct {
 	Email    string `json:"email"`
