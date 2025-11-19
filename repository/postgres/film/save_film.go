@@ -9,7 +9,7 @@ import (
 
 func (r Repository) SaveFilm(data entities.Film) (int, error) {
 	query := `
-		INSERT INTO films (title, director, year, gender, created_by)
+		INSERT INTO films (title, director, year, genre, created_by)
 		VALUES(
 			$1, 
 			$2,

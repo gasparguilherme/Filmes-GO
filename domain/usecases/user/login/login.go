@@ -7,7 +7,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (u Usecase) Login(data entities.Login) (*entities.User, error) {
+func (u Usecase) Login(data Login) (*entities.User, error) {
 	user, err := u.repository.FindUserByEmail(data.Email)
 	if err != nil {
 		return nil, fmt.Errorf("usuário não encontrado")
@@ -17,5 +17,5 @@ func (u Usecase) Login(data entities.Login) (*entities.User, error) {
 		return nil, fmt.Errorf("senha incorreta")
 	}
 
-	return user, nil
+	return &entities.User{}, nil
 }
