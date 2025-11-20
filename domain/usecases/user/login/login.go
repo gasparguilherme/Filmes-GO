@@ -17,5 +17,5 @@ func (u Usecase) Login(data Login) (*entities.User, error) {
 		return nil, fmt.Errorf("senha incorreta")
 	}
 
-	return &entities.User{}, nil
+	return user, nil
 }

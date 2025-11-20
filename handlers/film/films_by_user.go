@@ -46,6 +46,8 @@ func (h Handler) GetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 	err = json.NewEncoder(w).Encode(film)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "user_id", userID_int, "error", err)
+		http.Error(w, "ocorreu um erro inesperado", http.StatusInternalServerError)
 		return
+
 	}
 }
