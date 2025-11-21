@@ -6,11 +6,11 @@ import (
 	"strconv"
 )
 
-func (h Handler) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
+func (h Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	rawID := r.PathValue("id")
 	id, err := strconv.Atoi(rawID)
 	if err != nil {
-		http.Error(w, "ID inválido", http.StatusBadRequest)
+		http.Error(w, "ID inválido: o valor deve ser um número inteiro", http.StatusBadRequest)
 		return
 	}
 

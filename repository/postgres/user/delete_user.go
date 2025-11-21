@@ -11,7 +11,7 @@ func (r Repository) DeleteUser(id int) error {
 
 	_, err := r.connectionInstance.Exec(context.TODO(), query, id)
 	if err != nil {
-		return fmt.Errorf("erro ao deletar usuario: %w", err)
+		return fmt.Errorf("executando query de deleção: %w", err)
 	}
 
 	return nil
