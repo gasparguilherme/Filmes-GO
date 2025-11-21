@@ -38,7 +38,6 @@ func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		http.Error(w, "ocorreu um erro inesperado", http.StatusInternalServerError)
-
 		return
 	}
 

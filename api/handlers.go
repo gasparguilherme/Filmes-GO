@@ -13,6 +13,7 @@ type FilmHandler interface {
 
 type UserHandler interface {
 	CreateUser(w http.ResponseWriter, r *http.Request)
+	DeleteUser(w http.ResponseWriter, r *http.Request)
 }
 
 type LoginHandler interface {
