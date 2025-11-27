@@ -9,6 +9,7 @@ type FilmHandler interface {
 	GetFilmByID(w http.ResponseWriter, r *http.Request)
 	GetFilmsByUserID(w http.ResponseWriter, r *http.Request)
 	CreateFilm(w http.ResponseWriter, r *http.Request)
+	DeleteFilm(w http.ResponseWriter, r *http.Request)
 }
 
 type UserHandler interface {

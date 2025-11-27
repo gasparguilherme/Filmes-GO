@@ -7,4 +7,5 @@ type Repository interface {
 	FindFilmsByUserID(userID int) ([]entities.Film, error)
 	SaveFilm(data entities.Film) (int, error)        // corrigido
 	FindFilmByID(filmID int) (*entities.Film, error) // corrigido
+	DeleteFilm(id, userID int) error
 }

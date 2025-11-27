@@ -7,4 +7,5 @@ type Usecase interface {
 	FindFilmsByUserID(id int) ([]entities.Film, error)
 	FindFilmByID(id int) (*entities.Film, error)
 	CreateFilm(userID int, title string, director string, year int, genre string) (*entities.Film, error)
+	DeleteFilm(id, userID int) error
 }
