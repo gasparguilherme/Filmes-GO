@@ -6,5 +6,5 @@ type Film struct {
 	Year     int    `json:"year"`
 	Genre    string `json:"genre"`
 	ID       int    `json:"id"`
-	UserID   int    `json:"user_id"`
+	UserID   int    `json:"userID"`
 }
