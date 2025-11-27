@@ -15,6 +15,7 @@ func StartApp(userHandler UserHandler, filmHandler FilmHandler, loginHandler Log
 	mux.Handle("PUT /edit-film", http.HandlerFunc(filmHandler.EditFilm))
 	mux.Handle("GET /film/{id}", http.HandlerFunc(filmHandler.GetFilmByID))
 	mux.Handle("GET /film", http.HandlerFunc(filmHandler.GetFilmsByUserID))
+	mux.Handle("DELETE /film/{id}/user/{userID}", http.HandlerFunc(filmHandler.DeleteFilm))
 
 	http.ListenAndServe(":8080", mux)
 }
