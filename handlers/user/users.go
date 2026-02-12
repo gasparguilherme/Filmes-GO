@@ -5,23 +5,24 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/gasparguilherme/my-repository/authentication"
 	"github.com/gasparguilherme/my-repository/domain/entities"
 	"github.com/gasparguilherme/my-repository/handlers/validate"
 )
 
 func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 
-	requestID := r.Header.Get("Request-ID")
-	sessionID := r.Header.Get("Session-ID")
+	//requestID := r.Header.Get("Request-ID")
+	//sessionID := r.Header.Get("Session-ID")
 
-	logger := slog.With(
-		"handler", "CreateUser",
-		"request_id", requestID,
-		"session_id", sessionID,
-		"method", r.Method,
-		"path", r.URL.Path)
+	//logger := slog.With(
+	//"handler", "CreateUser",
+	//"request_id", requestID,
+	//"session_id", sessionID,
+	//"method", r.Method,
+	//	"path", r.URL.Path)
 
-	logger.Info("iniciando criacao de usuario")
+	//logger.Info("iniciando criacao de usuario")
 
 	var userRequest entities.User
 	err := json.NewDecoder(r.Body).Decode(&userRequest)
@@ -47,7 +48,22 @@ func (h Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(createdUser)
+	//token
+	token, err := authentication.CreateToken(createdUser.ID)
+	if err != nil {
+		slog.Error("erro ao gerar token", "error", err)
+		http.Error(w, "erro ao gerar token", http.StatusInternalServerError)
+		return
+	}
+	response := AuthResponse{
+		User:  *createdUser,
+		Token: token,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		slog.Error("erro ao converter para formato JSON", "error", err)
 		http.Error(w, "ocorreu um erro inesperado", http.StatusInternalServerError)

@@ -11,6 +11,18 @@ import (
 
 func (h Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 
+	requestID := r.Header.Get("Request-ID")
+	sessionID := r.Header.Get("Session-ID")
+
+	logger := slog.With(
+		"handler", "CreateUser",
+		"request_id", requestID,
+		"session_id", sessionID,
+		"method", r.Method,
+		"path", r.URL.Path)
+
+	logger.Info("iniciando criacao de filme")
+
 	var requestFilm entities.Film
 	err := json.NewDecoder(r.Body).Decode(&requestFilm)
 	if err != nil {
