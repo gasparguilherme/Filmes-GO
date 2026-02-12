@@ -11,6 +11,7 @@ import (
 
 func (h Handler) GetFilmsByUserID(w http.ResponseWriter, r *http.Request) {
 
+	
 	// acessa o query param "user_id" da URL
 	userID := r.URL.Query().Get("user_id")
 
