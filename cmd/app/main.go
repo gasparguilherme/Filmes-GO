@@ -7,12 +7,24 @@ import (
 
 	"github.com/gasparguilherme/my-repository/api"
 	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		slog.Error("Erro ao carregar .env", "error", err)
+		os.Exit(1)
+	}
+
 	ctx := context.Background()
 
-	dbURL := "postgres://postgres:senha@localhost:5433/films_go"
+	//pego o ambiente
+	dbURL := os.Getenv("DB_URL")
+	if dbURL == "" {
+		slog.Error("DB_URL não encontrada no .env")
+		os.Exit(1)
+	}
 
 	conn, err := pgx.Connect(ctx, dbURL)
 	if err != nil {
@@ -28,6 +40,7 @@ func main() {
 	}
 
 	slog.Info("Conexão estabelcida com sucesso")
+
 	userHandler := InitUser(conn)
 	filmHandler := InitFilm(conn)
 	loginHandler := InitLogin(conn)
